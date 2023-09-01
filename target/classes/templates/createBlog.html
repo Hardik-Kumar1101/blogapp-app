@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>createBlog</title>
+    <link rel="stylesheet" th:href="@{/updateBlog.css}">
+    <link rel="stylesheet" href="../static/updateBlog.css">
+</head>
+
+<body>
+
+<h1>Create-Blog-Post</h1>
+
+<form th:action="@{/create/process-blog-post}" th:object="${post_data}" method="post">
+
+    <div sec:authorize="hasAnyRole('USER')">
+        <h3> Authored by: <label for="userAuthor" th:text="${#authentication.name}"></label> </h3>
+        <input id="userAuthor" type="hidden" th:value="${#authentication.name}" th:name="author"/>
+    </div>
+    <br>
+
+    <input type="text" th:field="*{title}" placeholder="Title"/> <br>
+
+    <div class="dropdown" >
+        <span>Tags ▼</span>
+        <div class="dropdown-content">
+            <label class="checkbox"  th:each="tagItem : ${tagList}">
+                <input type="checkbox" th:value="${tagItem.id}" name="selectedTags">
+                <snap th:text="${tagItem.name}"></snap>
+                <br>
+            </label>
+        </div>
+    </div>
+
+    <br>
+
+    <input type="text" th:field="*{tags}" placeholder="Tags"/> <br>
+
+    <div sec:authorize="hasAnyRole('ADMIN')">
+        <input type="text" th:field="*{author}" placeholder="Author"/>
+    </div>
+
+    <input type="text" th:field="*{excerpt}" placeholder="Excerpt"/> <br>
+
+    <textarea type="text" th:field="*{content}" placeholder="Content"></textarea> <br>
+
+    <label for="is_published">Published</label>
+    <input id="is_published" type="checkbox" th:field="*{is_published}" placeholder="is_published"/> <br>
+
+    <input type="hidden" th:value="${#authentication.authorities}" th:name="userRole">
+
+    <button type="submit">Create</button>
+
+</form>
+
+</body>
+</html>

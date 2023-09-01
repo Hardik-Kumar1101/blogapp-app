@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+     >
+
+<head>
+    <title>createBlog</title>
+    <link rel="stylesheet" th:href="@{/updateComment.css}"/>
+</head>
+
+<body>
+
+<h1>Comment-on-blog-post</h1>
+
+<form th:action="@{/create/blog-post-comment}" th:object="${comment_data}" method="post">
+
+    <h2>Name</h2>
+    <input type="text" th:value="${name}" th:name="name" placeholder="Name" required/> <br>
+
+    <h2>Email</h2>
+    <input type="text" th:value="${email}" th:name="email" placeholder="Email" required/> <br>
+
+    <h2>Comment</h2>
+    <textarea type="text" th:value="${comment}" th:name="comment" placeholder="Comment..." required></textarea><br> <br>
+
+    <input type="hidden" th:value="${postId}" th:name="postId"/>
+    <button type="submit">Comment</button>
+
+</form>
+
+</body>
+</html>

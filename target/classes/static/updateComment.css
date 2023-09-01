@@ -1,0 +1,45 @@
+*{
+
+    font-family: sans-serif;
+}
+
+h1{
+    text-align: center;
+}
+
+form{
+    margin: 2% auto;
+    border: 1px solid black;
+    width:40%;
+    padding: 10px;
+    text-align: center;
+}
+
+form h2{
+    color: black;
+}
+
+form input[type='text']{
+    font-size: 20px;
+    padding: 10px;
+    outline: none;
+    
+}
+
+form textarea{
+    width: 300px;
+    resize: none;
+    height: 250px;
+    outline: none;
+    padding: 10px;
+    font-size: 15px;
+    
+}   
+
+form button{
+    outline: none;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 20px;
+    cursor: pointer;
+}

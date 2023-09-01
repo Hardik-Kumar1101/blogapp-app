@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <link rel="stylesheet" th:href="@{/home.css}" type="text/css">
+    
+   <link rel="stylesheet" href="../static/home.css">
+
+    <title>Home</title>
+</head>
+
+<body>
+<h1>Home</h1>
+<div class="box">
+
+    <div class="leftminibox" sec:authorize="hasAnyRole('USER','ADMIN')">
+        <a th:href="@{/create/create-page}">Create Blog</a> &nbsp; &nbsp;
+
+        <a th:href="@{/draft/{authorName}/{userRole} (authorName=${#authentication.name}, userRole=${#authentication.authorities})}" >Draft</a>
+        &nbsp;
+    </div>
+
+    <div class="user" th:if="${#authentication.isAuthenticated()}">
+
+        Welcome &nbsp; <span th:if="${#authentication.name} != 'anonymousUser'" th:text="${#authentication.name}"></span>
+        &nbsp; &nbsp;
+    </div>
+
+    <div sec:authorize="hasAnyRole('ADMIN','USER','MANAGER')">
+        <form action="#" th:action="@{/logout}" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <div class="rightminibox" sec:authorize="hasRole('ANONYMOUS')">
+
+        <form th:action="@{/login/user-login}">
+            <button type="submit">Login</button>
+        </form>
+
+        <form th:action="@{/login/create-new-user}">
+            <button type="submit">Sing Up</button>
+        </form>
+
+    </div>
+
+    <form th:action="@{/login/create-new-user}" sec:authorize="hasRole('ADMIN')">
+        <button type="submit">Sing Up Admin</button>
+    </form>
+
+
+</div>
+
+<nav>
+
+    <form id="searchBox" th:action="@{/search}" method="post">
+        <input type="text" name="search" placeholder="Search">
+        <button>Search</button>
+    </form>
+
+    <div class="checkbox-container">
+
+        <form th:action="@{/filter/date}" id="date-filter" method="post">
+            <input type="date" name="selectedDateStart">
+            To
+            <input type="date" name="selectedDateEnd">
+            <button type="submit">filter</button>
+        </form>
+
+        <form th:action="@{/filter/tags}" method="post">
+            <div class="dropdown">
+                <span>Tags ▼</span>
+                <div class="dropdown-content">
+                    <label class="checkbox" th:each="tag : ${tagsList}">
+                        <input type="checkbox" th:value="${tag.id}" name="selectedTags">
+                        <snap th:text="${tag.name}"></snap>
+                        <br>
+                    </label>
+                </div>
+            </div>
+            <button type="submit">filter</button>
+        </form>
+
+        <form th:action="@{/filter/authors}" method="post">
+            <div class="dropdown">
+                <span>Author ▼</span>
+                <div class="dropdown-content">
+                    <label class="checkbox" th:each="authorName : ${allUniqueAuthorsName}">
+                        <input type="checkbox" th:value="${authorName}" name="selectedAuthorName">
+                        <snap th:text="${authorName}"></snap>
+                        <br>
+                    </label>
+                </div>
+            </div>
+            <button type="submit">filter</button>
+        </form>
+
+        <a th:href="@{/view/blog-post-sort-by-published}">Sort</a> by published date ASC
+    </div>
+
+</nav>
+
+<div class="blog-container" th:each="post : ${postData}">
+
+    <div class="card">
+        <h2 class="title" th:text="${post.title}"></h2>
+
+        <div class="author-and-published">
+            <h4 th:text="${post.author}"></h4>
+            &emsp;
+            <h5 th:text="${#temporals.format(post.published_at, 'dd-MM-yyyy')}"></h5>
+
+        </div>
+
+        <p th:text="${post.excerpt}"></p>
+
+        <a th:href="@{/view/blog-post/{postId}(postId=${post.id})}">read more</a>
+
+    </div>
+
+</div>
+
+<a th:href="@{/next/{page}(page=${page+1})}">next</a>
+<a th:href="@{/previous/{page}(page=${page-1})}">previous</a>
+
+</body>
+</html>

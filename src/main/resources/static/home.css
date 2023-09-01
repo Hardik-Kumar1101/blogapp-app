@@ -1,0 +1,149 @@
+*{
+  font-family: sans-serif;
+}
+
+nav{
+    
+    border: 1px solid black;
+    padding: 10px;
+    display:flex;
+    justify-content:space-between;
+}
+
+#searchBox{
+  border: 1px solid black;
+  display: flex;
+  padding: 10px;
+}
+
+#searchBox input[type="text"]{
+  padding: 5px;
+  font-size: 18px;
+}
+
+#searchBox button{
+  cursor: pointer;
+}
+
+.blog-container {
+
+  }
+
+  .card {
+    border: 1px solid black;
+    margin: 10px auto;
+    width: 50%;
+    padding: 20px;
+  }
+.card .title{
+  padding: 2px;
+        border: 1px solid black;
+}
+.card .author-and-published{
+  padding: 2px;
+        border: 1px solid black;
+        display:flex;
+        justify-content:space-between;
+
+}
+.card p{
+    border: 1px solid black;
+    padding:5px;
+}
+
+.card button{
+    border:1px solid black;
+    outline:none;
+    padding:10px;
+    cursor:pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    padding: 10px;
+    z-index: 1;
+  }
+
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+
+  .checkbox {
+    margin-bottom: 5px;
+  }
+
+.checkbox-container{
+  border: 1px solid black;
+  float:right;
+  width: 60%;
+  display: flex;
+  justify-content: space-between;
+  padding: 3px;
+}
+
+.checkbox-container form{
+  width: 20%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+.checkbox-container #date-filter{
+  width: 40%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+  border: 1px solid black;
+}
+
+.checkbox-container form button{
+  cursor: pointer;
+}
+
+
+.box{
+  border: 1px solid black;
+  display: flex;
+  margin: 10px auto;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 10px;
+}
+.box button{
+    font-size:15px;
+    padding:5px;
+    cursor:pointer;
+}
+.box .user{
+    padding:10px;
+    border: 1px solid black;
+    display:flex;
+    text-align:center;
+    align-items:center;
+    justify-content:space-around;
+}
+
+.leftminibox{
+  width:10% ;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rightminibox{
+  width: 8%;
+  display: flex;
+  justify-content: space-between;
+}

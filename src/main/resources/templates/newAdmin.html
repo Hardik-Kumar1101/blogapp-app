@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Loing</title>
+    <link rel="stylesheet" th:href="@{/login.css}" type="text/css">
+    <link rel="stylesheet" href="../static/login.css" type="text/css">
+</head>
+
+<body>
+
+<h1 th:text="${error}"></h1>
+
+<form  th:action="@{/create/create-new-user}" th:object="${user}" method="post">
+
+    <h3>Name</h3>
+    <input type="text" th:field="*{username}" placeholder="username" required/><br>
+    <br>
+
+    <h3>Email</h3>
+    <input type="text" th:field="*{email}" placeholder="email" required/> <br>
+    <br>
+
+    <h3>Password</h3>
+    <input type="password" th:field="*{password}" placeholder="password" required/> <br>
+    <br>
+
+    <input type="hidden" th:value="${'ROLE_ADMIN'}" th:name="authority" />
+    <input type="hidden" th:value="${1}" th:name="enabled"/>
+
+    <input type="submit" value="Sign Up"/>
+
+</form>
+
+</body>
+</html>

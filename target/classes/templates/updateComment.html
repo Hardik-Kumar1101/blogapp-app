@@ -1,0 +1,30 @@
+
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Edite Comment</title>
+</head>
+    <link rel="stylesheet" th:href="@{/updateComment.css}">
+<body>
+
+<h1>Edit-your-comment</h1>
+
+<form th:action="@{/edit/blog-post-comment}" th:object="${comment_data}" method="post">
+
+    <h2>Name</h2>
+    <input type="text" th:value="${commentData.name}" th:name="name" placeholder="Name"/> <br>
+    <h2>Email</h2>
+    <input type="text" th:value="${commentData.email}" th:name="email" placeholder="Email"/> <br>
+    <h2>Comment</h2>
+    <textarea type="text" th:value="${commentData.comment}" th:text="${commentData.comment}" th:name="comment" placeholder="Comment..."></textarea> <br>
+    <input type="hidden" th:value="${commentData.id}" th:name="id" />
+
+    <input type="hidden" th:value="${postId}" th:name="postId">
+    <button type="submit">Edit Comment</button>
+
+</form>
+
+</body>
+
+</html>

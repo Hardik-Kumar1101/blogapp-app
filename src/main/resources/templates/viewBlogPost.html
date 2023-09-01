@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/viewBlogPost.css}" type="text/css">
+    <link rel="stylesheet" href="../static/viewBlogPost.css">
+</head>
+
+<body>
+
+<h1>View Blog Post and Comment</h1>
+
+<div class="blog-container">
+
+    <table>
+        <tr>
+            <td>Title</td>
+            <td>Tags</td>
+            <td>Author</td>
+            <td>Created Date</td>
+            <td>Published Date</td>
+            <td>Last Edit</td>
+        </tr>
+        <tr>
+            <td th:text="${post.title}"></td>
+            <td>
+                <select name="tags">
+                    <option th:each="tag : ${post.tags}" th:value="${tag.id}">
+                        <p th:text="${tag.name}"></p>
+                    </option>
+                </select>
+            </td>
+
+            <td th:text="${post.author}"></td>
+            <td th:text="${#temporals.format(post.created_at, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(post.published_at, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(post.updated_at, 'dd-MM-yyyy hh:mm a')}"></td>
+        </tr>
+
+    </table>
+
+    <div class="blog-content">
+        <h3>Content</h3> <br>
+        <p th:text="${post.content}"></p>
+    </div>
+
+    <div class="blog-nav">
+
+            <div class="deleteEditbox" sec:authorize="hasAnyRole('USER')" th:if="${post.author} == ${#authentication.name}">
+                <a th:href="@{/delete/blog-post/{postId} (postId=${post.id})}" >Delete</a>
+                <a th:href="@{/view/blog-post-edit-page/{postId} (postId=${post.id})}" >Edit</a>
+            </div>
+
+        <div class="deleteEditbox" sec:authorize="hasAnyRole('ADMIN')">
+            <a th:href="@{/delete/blog-post/{postId} (postId=${post.id})}" >Delete</a>
+            <a th:href="@{/view/blog-post-edit-page/{postId} (postId=${post.id})}" >Edit</a>
+        </div>
+
+        <a th:href="@{/view/blog-post-comment/{postId} (postId=${post.id})}" >Comment</a>
+
+    </div>
+
+</div>
+
+<h1>Comment Section</h1>
+
+<div class="comment-container" th:each="theComment : ${commentList}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+        </tr>
+        <tr>
+            <td th:text="${theComment.name}"></td>
+            <td th:text="${theComment.email}"></td>
+        </tr>
+    </table>
+    <div class="comment-content">
+        <p th:text="${theComment.comment}"></p>
+    </div>
+
+    <table>
+        <tr>
+            <td>Created Date</td>
+            <td>Last Edit</td>
+        </tr>
+
+        <tr>
+            <td th:text="${#temporals.format(theComment.created_at, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#temporals.format(theComment.updated_at, 'dd-MM-yyyy hh:mm a')}"></td>
+        </tr>
+    </table>
+
+    <div class="comment-footer">
+
+        <div class="role" sec:authorize="hasAnyRole('USER')" th:if="${post.author} == ${#authentication.name}">
+            <a th:href="@{/view/blog-post-comment-edit-page/{postId}/{commentId} (postId=${post.id}, commentId=${theComment.id})}"> Edit</a>
+            <a th:href="@{/delete/blog-post-comment/{postId}/{commentId} (postId=${post.id}, commentId=${theComment.id})}"> Delete</a>
+        </div>
+
+        <div class="role" sec:authorize="hasAnyRole('ADMIN')">
+            <a th:href="@{/view/blog-post-comment-edit-page/{postId}/{commentId} (postId=${post.id}, commentId=${theComment.id})}"> Edit</a>
+            <a th:href="@{/delete/blog-post-comment/{postId}/{commentId} (postId=${post.id}, commentId=${theComment.id})}"> Delete</a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

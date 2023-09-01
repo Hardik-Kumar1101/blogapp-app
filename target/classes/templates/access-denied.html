@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title>access-denied page</title>
+</head>
+
+<body>
+
+    <p>
+        <h1>access-denied for this request </h1>
+    </p>
+    <hr>
+
+    <p>
+        User name: <span sec:authentication="principal.username"></span>
+        <br><br>
+        Role(s): <span sec:authentication="principal.authorities"></span>
+    </p>
+
+    <a th:href="@{/}">Back to home page </a>
+
+    <div sec:authorize="hasRole('USER')">
+        <form action="#" th:action="@{/logout}" method="POST">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
